@@ -1,0 +1,172 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu2wyei7c1wi3"]
+
+[ext_resource type="Script" uid="uid://b2i5nlky1cqwy" path="res://full_game.gd" id="1_3h4wb"]
+[ext_resource type="Script" uid="uid://u57ecmkjjlu3" path="res://game_over_menu.gd" id="2_q3qoe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3qoe"]
+bg_color = Color(1, 1, 1, 0.25098)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="FullGame" type="Node2D"]
+script = ExtResource("1_3h4wb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[node name="StartButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -23.5
+offset_right = 166.0
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "START GAME"
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 128
+text = "BOLAS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_q3qoe")
+
+[node name="BackgroundFade" type="ColorRect" parent="CanvasLayer/GameOverMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GameOverTimer" type="Timer" parent="CanvasLayer/GameOverMenu"]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="GameOverMenuPanel" type="Control" parent="CanvasLayer/GameOverMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/GameOverMenu/GameOverMenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -166.0
+offset_right = 166.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q3qoe")
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -15.0
+offset_right = 114.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "RESTART"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -115.0
+offset_top = -92.0
+offset_right = 114.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "MENU"
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -121.0
+offset_top = 77.0
+offset_right = 121.0
+offset_bottom = 121.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "1012314214"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/GameOverMenuPanel/Panel/MenuButton" to="." method="_on_menu_button_pressed"]
