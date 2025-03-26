@@ -30,8 +30,11 @@ func get_points(count):
 func ball_collision(ball_type):
 	if ball_type=="red":
 		lose_life()
+		%SfxHurt.play()
 	elif ball_type=="green":
 		get_life()
 		get_points(10)
+		%SfxPickup.play()
 	elif ball_type=="blue":
 		get_points(1)
+		%SfxPickup.play()

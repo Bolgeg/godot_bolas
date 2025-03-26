@@ -35,52 +35,55 @@ font_size = 24
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7jktm")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
+[node name="Background" type="Node2D" parent="Objects"]
+
+[node name="ColorRect" type="ColorRect" parent="Objects/Background"]
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
-[node name="Stars" type="Node2D" parent="Background"]
+[node name="Stars" type="Node2D" parent="Objects/Background"]
 script = ExtResource("2_ryrav")
 
-[node name="Player" parent="." instance=ExtResource("1_80nbo")]
+[node name="Player" parent="Objects" instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
 position = Vector2(150, 300)
 
-[node name="Walls" type="StaticBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="Objects"]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Walls"]
 position = Vector2(571.5, -70.5)
 shape = SubResource("RectangleShape2D_80nbo")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Objects/Walls"]
 position = Vector2(575.5, 737.5)
 shape = SubResource("RectangleShape2D_e2o6t")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Objects/Walls"]
 position = Vector2(-77, 324)
 shape = SubResource("RectangleShape2D_feb5d")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Objects/Walls"]
 position = Vector2(1224.5, 324)
 shape = SubResource("RectangleShape2D_fc0e3")
 
-[node name="Balls" type="Node2D" parent="."]
+[node name="Balls" type="Node2D" parent="Objects"]
 script = ExtResource("2_e2o6t")
 
-[node name="StateBar" type="Node2D" parent="."]
+[node name="StateBar" type="Node2D" parent="Objects"]
 
-[node name="Panel" type="Panel" parent="StateBar"]
+[node name="Panel" type="Panel" parent="Objects/StateBar"]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 491.0
 offset_bottom = 60.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2o6t")
 
-[node name="LivesLabel" type="Label" parent="StateBar/Panel"]
+[node name="LivesLabel" type="Label" parent="Objects/StateBar/Panel"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 18.0
@@ -91,7 +94,7 @@ text = "13143140"
 label_settings = SubResource("LabelSettings_e2o6t")
 horizontal_alignment = 2
 
-[node name="ScoreLabel" type="Label" parent="StateBar/Panel"]
+[node name="ScoreLabel" type="Label" parent="Objects/StateBar/Panel"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 322.0
@@ -102,10 +105,28 @@ text = "232525"
 label_settings = SubResource("LabelSettings_feb5d")
 horizontal_alignment = 2
 
-[node name="BlueCircle" type="Sprite2D" parent="StateBar/Panel"]
+[node name="BlueCircle" type="Sprite2D" parent="Objects/StateBar/Panel"]
 position = Vector2(429, 20)
 texture = ExtResource("3_fc0e3")
 
-[node name="GreenCircle" type="Sprite2D" parent="StateBar/Panel"]
+[node name="GreenCircle" type="Sprite2D" parent="Objects/StateBar/Panel"]
 position = Vector2(191, 20)
 texture = ExtResource("4_7jktm")
+
+[node name="PauseScreen" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseScreen"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="PauseScreen"]
+offset_left = 450.0
+offset_top = 273.0
+offset_right = 697.0
+offset_bottom = 361.0
+theme_override_font_sizes/font_size = 64
+text = "PAUSED"
+horizontal_alignment = 1

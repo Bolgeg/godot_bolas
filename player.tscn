@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://csjjgtwdqvh3"]
+[gd_scene load_steps=5 format=3 uid="uid://csjjgtwdqvh3"]
 
 [ext_resource type="Script" uid="uid://8sijatb7gbk0" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="AudioStream" uid="uid://bfp8sohc2m4ug" path="res://sfx/hurt.wav" id="2_onrkg"]
+[ext_resource type="AudioStream" uid="uid://cu26onc61e71w" path="res://sfx/pickup.wav" id="3_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh265"]
 size = Vector2(100, 100)
@@ -25,3 +27,12 @@ offset_bottom = 50.0
 unique_name_in_owner = true
 wait_time = 0.25
 one_shot = true
+
+[node name="SfxHurt" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_onrkg")
+
+[node name="SfxPickup" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_i3pqv")
+volume_db = -10.0
