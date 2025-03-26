@@ -2,11 +2,33 @@ extends Node
 
 const MAX_BALLS:=50
 
-const BALL_PROBABILITIES:={
-	"red":0.4,
-	"green":0.1,
-	"blue":0.5,
-}
+var game_progress:=0.0
+
+func update_game_progress(progress: float):
+	game_progress=progress
+
+func get_ball_probabilities():
+	var probabilities:={
+		"red":0.4,
+		"green":0.1,
+		"blue":0.5,
+		"yellow":0.0,
+		"gray":0.0,
+	}
+	
+	if game_progress>=1:
+		probabilities["yellow"]+=(game_progress-1)*0.005
+		if probabilities["yellow"]>0.01:
+			probabilities["yellow"]=0.01
+		probabilities["gray"]=probabilities["yellow"]
+	
+	var sum:=0.0
+	for t in probabilities:
+		sum+=probabilities[t]
+	if sum>0:
+		for t in probabilities:
+			probabilities[t]/=sum
+	return probabilities
 
 func _ready():
 	add_random_balls(MAX_BALLS)
@@ -21,17 +43,18 @@ func update_speed(factor: float):
 		ball.update_speed(factor)
 
 func get_random_ball_type():
+	var ball_probabilities=get_ball_probabilities()
 	var x=randf()
 	var sum:=0.0
-	for type in BALL_PROBABILITIES:
-		sum+=BALL_PROBABILITIES[type]
+	for type in ball_probabilities:
+		sum+=ball_probabilities[type]
 		if x<sum:
 			return type
-	return BALL_PROBABILITIES.keys().back()
+	return ball_probabilities.keys().back()
 
 func get_random_position_for_ball():
 	const OFFSET_MIN=500
-	const OFFSET_MAX=5000
+	const OFFSET_MAX=10000
 	const WALL_DISTANCE=50
 	var viewport=get_viewport().size
 	var minp=Vector2(viewport.x+OFFSET_MIN,WALL_DISTANCE)

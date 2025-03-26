@@ -6,6 +6,10 @@ var lost:=false
 var paused:=false
 var game_time:=0.0
 
+const GAME_SPEED_FACTOR_SLOW:=0.25
+const GAME_SPEED_FACTOR_NORMAL:=1.0
+var game_speed_factor:=GAME_SPEED_FACTOR_NORMAL
+
 func _ready() -> void:
 	%PauseScreen.visible=false
 
@@ -28,8 +32,9 @@ func _process(delta: float) -> void:
 				%Objects.visible=false
 				%PauseScreen.visible=true
 	if not lost and not paused:
-		game_time+=delta
+		game_time+=delta*game_speed_factor
 		update_game_speed()
+		update_game_progress()
 
 func update_game_speed():
 	const MAX_GAME_SPEED:=10.0
@@ -40,9 +45,14 @@ func update_game_speed():
 	var game_speed=pow(MAX_GAME_SPEED,speed_progress)
 	update_speed_of_objects(game_speed)
 
+func update_game_progress():
+	const GAME_PROGRESS_PER_SECOND:=1/30.0
+	var game_progress=game_time*GAME_PROGRESS_PER_SECOND
+	%Balls.update_game_progress(game_progress)
+
 func update_speed_of_objects(factor: float):
-	%Player.update_speed(factor)
-	%Balls.update_speed(factor)
+	%Player.update_speed(factor*game_speed_factor)
+	%Balls.update_speed(factor*game_speed_factor)
 
 func pause():
 	for child in get_children():
@@ -55,3 +65,15 @@ func resume():
 
 func destroy():
 	queue_free()
+
+
+func _on_player_game_slow_down_triggered() -> void:
+	if %SlowDownTimer.is_stopped():
+		%SfxSlowdown.play()
+	else:
+		%SfxSlowdownRecatch.play()
+	%SlowDownTimer.start()
+	game_speed_factor=GAME_SPEED_FACTOR_SLOW
+
+func _on_slow_down_timer_timeout() -> void:
+	game_speed_factor=GAME_SPEED_FACTOR_NORMAL

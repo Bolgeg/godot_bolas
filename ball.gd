@@ -6,11 +6,15 @@ const BALL_TYPES:=[
 	"red",
 	"green",
 	"blue",
+	"yellow",
+	"gray",
 ]
 const BALL_COLORS:={
 	"red":Color(1,0,0,1),
 	"green":Color(0,1,0,1),
 	"blue":Color(0,0,1,1),
+	"yellow":Color(1,1,0,1),
+	"gray":Color(0.5,0.5,0.5,1),
 }
 
 const INITIAL_SPEED:=500.0
