@@ -13,7 +13,8 @@ const BALL_COLORS:={
 	"blue":Color(0,0,1,1),
 }
 
-var speed:=500.0
+const INITIAL_SPEED:=500.0
+var speed:=INITIAL_SPEED
 
 var type:=BALL_TYPES[0]
 
@@ -30,6 +31,9 @@ func _physics_process(_delta: float) -> void:
 	
 	if global_position.x<BALL_LIMIT_MIN_X:
 		queue_free()
+
+func update_speed(factor: float):
+	speed=INITIAL_SPEED*factor
 
 func set_type(newType: String):
 	if newType in BALL_TYPES:

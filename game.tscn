@@ -72,6 +72,7 @@ position = Vector2(1224.5, 324)
 shape = SubResource("RectangleShape2D_fc0e3")
 
 [node name="Balls" type="Node2D" parent="Objects"]
+unique_name_in_owner = true
 script = ExtResource("2_e2o6t")
 
 [node name="StateBar" type="Node2D" parent="Objects"]

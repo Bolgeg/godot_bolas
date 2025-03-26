@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-var speed:=500.0
+const INITIAL_SPEED:=500.0
+var speed:=INITIAL_SPEED
 
 var lives:=10
 var score:=0
@@ -16,6 +17,9 @@ func _physics_process(_delta: float) -> void:
 	var movement:=Input.get_axis("move_up","move_down")
 	velocity.y=speed*movement
 	move_and_slide()
+
+func update_speed(factor: float):
+	speed=INITIAL_SPEED*factor
 
 func lose_life():
 	%DamageTimer.start()

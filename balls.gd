@@ -16,6 +16,10 @@ func _physics_process(_delta: float) -> void:
 	if ball_count<MAX_BALLS:
 		add_random_balls(MAX_BALLS-ball_count)
 
+func update_speed(factor: float):
+	for ball in get_children():
+		ball.update_speed(factor)
+
 func get_random_ball_type():
 	var x=randf()
 	var sum:=0.0
