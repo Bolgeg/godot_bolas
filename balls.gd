@@ -42,6 +42,10 @@ func update_speed(factor: float):
 	for ball in get_children():
 		ball.update_speed(factor)
 
+func update_magnet_effect(delta: float,player_position: Vector2,game_speed: float):
+	for ball in get_children():
+		ball.update_magnet_effect(delta,player_position,game_speed)
+
 func get_random_ball_type():
 	var ball_probabilities=get_ball_probabilities()
 	var x=randf()

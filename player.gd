@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal game_slow_down_triggered
+signal game_magnet_mode_triggered
 
 const INITIAL_SPEED:=500.0
 var speed:=INITIAL_SPEED
@@ -47,4 +48,4 @@ func ball_collision(ball_type):
 	elif ball_type=="yellow":
 		game_slow_down_triggered.emit()
 	elif ball_type=="gray":
-		pass
+		game_magnet_mode_triggered.emit()
