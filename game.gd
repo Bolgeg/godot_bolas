@@ -16,10 +16,16 @@ var magnet_mode:=false
 
 func _ready() -> void:
 	%PauseScreen.visible=false
+	%SlowdownProgressBar.visible=false
+	%MagnetModeProgressBar.visible=false
 
 func _process(delta: float) -> void:
 	%LivesLabel.text=str(%Player.lives)
 	%ScoreLabel.text=str(%Player.score)
+	
+	update_progress_bar(%SlowdownProgressBar,%SlowDownTimer)
+	update_progress_bar(%MagnetModeProgressBar,%MagnetModeTimer)
+	
 	if %Player.lives<=0 and not lost:
 		%Player.lives=0
 		game_over.emit(%Player.score)
@@ -44,6 +50,9 @@ func _physics_process(delta: float) -> void:
 	if not lost and not paused:
 		if magnet_mode:
 			update_magnet_effect(delta)
+
+func update_progress_bar(bar,timer):
+	bar.value=timer.time_left/timer.wait_time
 
 func update_magnet_effect(delta: float):
 	%Balls.update_magnet_effect(delta*game_speed_factor,%Player.global_position,game_speed)
@@ -86,9 +95,11 @@ func _on_player_game_slow_down_triggered() -> void:
 		%SfxSlowdownRecatch.play()
 	%SlowDownTimer.start()
 	game_speed_factor=GAME_SPEED_FACTOR_SLOW
+	%SlowdownProgressBar.visible=true
 
 func _on_slow_down_timer_timeout() -> void:
 	game_speed_factor=GAME_SPEED_FACTOR_NORMAL
+	%SlowdownProgressBar.visible=false
 
 func _on_player_game_magnet_mode_triggered() -> void:
 	if %MagnetModeTimer.is_stopped():
@@ -97,6 +108,8 @@ func _on_player_game_magnet_mode_triggered() -> void:
 		%SfxMagnetRecatch.play()
 	%MagnetModeTimer.start()
 	magnet_mode=true
+	%MagnetModeProgressBar.visible=true
 
 func _on_magnet_mode_timer_timeout() -> void:
 	magnet_mode=false
+	%MagnetModeProgressBar.visible=false
